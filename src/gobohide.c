@@ -25,7 +25,7 @@
 #define PATH_MAX 8192
 #endif
 #include <sys/ioctl.h>
-#include "gobolinux.h"
+#include "gobohide.h"
 
 #include <locale.h>
 #include <libintl.h>
@@ -34,8 +34,8 @@
 
 
 /* Paranoia setting */
-#ifndef FIGOBOLINUX
-#define FIGOBOLINUX _IOW(0x00, 0x22, size_t) /* gobolinux-fs ioctl */
+#ifndef FIGOBOHIDE
+#define FIGOBOHIDE _IOW(0x00, 0x22, size_t) /* gobolinux-fs ioctl */
 #endif
 
 static int show_help = 0;
@@ -125,8 +125,8 @@ generic_ioctl (char *dir, int operation)
 	hide.operation = operation;
 	hide.inode     = stats.st_ino;
 	
-	if (ioctl (fd, FIGOBOLINUX, &hide) == -1) {
-		perror ("ioctl");
+	if (ioctl (fd, FIGOBOHIDE, &hide) == -1) {
+		perror ("generic_ioctl");
 	}
 	close (fd);
 }
@@ -159,13 +159,13 @@ get_stats ()
 	if (!S_ISDIR(stats.st_mode)) 
 		err_quit (1, "/");
 
-	hide->operation           = GETSTATSUIDNUMBER;
+	hide->operation           = GOBOHIDE_COUNTHIDDEN;
 	hide->stats.hidden_inodes = 0;
 	hide->inode               = stats.st_ino;
 	
 	/* Do the ioctl call passing a valid file descriptor */
-	if ((ioctl (fd, FIGOBOLINUX, hide)) < 0) {
-		perror ("ioctl");
+	if ((ioctl (fd, FIGOBOHIDE, hide)) < 0) {
+		perror ("GOBOHIDE_COUNTHIDDEN");
 		exit (EXIT_FAILURE);
 	} else if (hide->stats.hidden_inodes <= 0) {
 		return NULL;
@@ -185,13 +185,13 @@ get_stats ()
 		}
 	}
 	
-	hide->operation = GETSTATSUID;
+	hide->operation = GOBOHIDE_GETHIDDEN;
 	/* Get the inodes list */
-	if ((ioctl (fd, FIGOBOLINUX, hide)) < 0) {
+	if ((ioctl (fd, FIGOBOHIDE, hide)) < 0) {
 		for (i = 0; i < hide->stats.hidden_inodes; i++)
 			free (hide->stats.hidden_list[i]);
 		free (hide->stats.hidden_list);
-		perror ("ioctl");
+		perror ("GOBOHIDE_GETHIDDEN");
 		exit (EXIT_FAILURE);
 	}
 
@@ -231,7 +231,7 @@ purge_list ()
 		return; /* No list to purge */
 
 	for (i = 0; i < hide->stats.filled_size; i++) {
-		generic_ioctl (hide->stats.hidden_list[i], GOBOLINUX_UNHIDEINODE);
+		generic_ioctl ((char *) hide->stats.hidden_list[i], GOBOHIDE_UNHIDEINODE);
 		free (hide->stats.hidden_list[i]);
 	}
 	
@@ -249,13 +249,13 @@ main (int argc, char **argv)
 	program_name = argv[0];
 	while ((c = getopt_long (argc, argv, shortopts, longopts, 0)) != -1) {
 		switch (c) {
-		case 'h': a = GOBOLINUX_HIDEINODE;
+		case 'h': a = GOBOHIDE_HIDEINODE;
 			  dir = optarg;
 			  break;
-		case 'u': a = GOBOLINUX_UNHIDEINODE;
+		case 'u': a = GOBOHIDE_UNHIDEINODE;
 			  dir = optarg;
 			  break;
-		case 'l': a = GETSTATSUID;
+		case 'l': a = GOBOHIDE_GETHIDDEN;
 			  break;
 		case 'f': purge = 1;
 			  break;
@@ -288,12 +288,12 @@ main (int argc, char **argv)
 				"try '%s --help' for more information\n"), program_name, program_name);
 			break;
 
-		case GETSTATSUID:
+		case GOBOHIDE_GETHIDDEN:
 			list_hidden ();
 			break;
 				  
 		default:
-			generic_ioctl (dir, a);
+			generic_ioctl ((char *) dir, a);
 			while (optind < argc)
 				generic_ioctl (argv[optind++], a);
 	}
