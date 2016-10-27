@@ -16,11 +16,10 @@
 #include <string.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <linux/fcntl.h>
-#include <linux/fs.h>
 #include <unistd.h>
 #include <getopt.h>
 #include <limits.h>
+#include <fcntl.h>
 #ifndef PATH_MAX
 #define PATH_MAX 8192
 #endif
