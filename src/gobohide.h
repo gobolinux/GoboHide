@@ -1,25 +1,38 @@
-#ifndef _LINUX_GOBOHIDE_H
-#define _LINUX_GOBOHIDE_H
+#ifndef __GOBOHIDE_H
+#define __GOBOHIDE_H
 
-/* Gobolinux internal ioctls */
+#define GOBOHIDE_GENL_NAME    "gobohide"
+#define GOBOHIDE_GENL_VERSION  0x01
 
-#define GOBOHIDE_HIDEINODE   0x0000001 /* Hide a given inode number */
-#define GOBOHIDE_UNHIDEINODE 0x0000002 /* Unhide a given inode number */
-#define GOBOHIDE_COUNTHIDDEN 0x0000003 /* Get the number of inodes hidden */
-#define GOBOHIDE_GETHIDDEN   0x0000004 /* Get the inodes hidden */
-
-struct gobolinux_hide_stats {
-	int hidden_inodes;      /* how many inodes we're hiding */
-	int filled_size;        /* how many inodes we filled on the hidden_list */
-	char **hidden_list;     /* the hidden list */
+/* netlink commands */
+enum {
+	GOBOHIDE_CMD_INVALID = 0,
+	GOBOHIDE_CMD_HIDE,       /* userspace -> kernel */
+	GOBOHIDE_CMD_UNHIDE,     /* userspace -> kernel */
+	GOBOHIDE_CMD_FLUSH,      /* userspace -> kernel */
+	GOBOHIDE_CMD_LIST,       /* userspace -> kernel */
+	GOBOHIDE_CMD_LIST_SIZE,  /* kernel -> userspace */
+	GOBOHIDE_CMD_LIST_REPLY, /* kernel -> userspace */
+	__GOBOHIDE_CMD_MAX
 };
+#define GOBOHIDE_CMD_MAX (__GOBOHIDE_CMD_MAX - 1)
 
-struct gobolinux_hide {
-	char operation;                     /* the operation to be performed */
-	ino_t inode;                        /* the inode number */
-	const char *pathname;               /* the pathname being submitted */
-	char symlink;                       /* is inode a symlink? */
-	struct gobolinux_hide_stats stats;  /* statistics about the inodes being hidden */
+/* netlink policies */
+enum {
+	GOBOHIDE_CMD_ATTR_UNSPEC = 0,
+	GOBOHIDE_CMD_ATTR_PATH,
+	GOBOHIDE_CMD_ATTR_INODE,
+	__GOBOHIDE_CMD_ATTR_MAX,
 };
+#define GOBOHIDE_CMD_ATTR_MAX (__GOBOHIDE_CMD_ATTR_MAX - 1)
 
-#endif  /* _LINUX_GOBOHIDE_H */
+/* netlink data types (kernel -> userspace) */
+enum {
+	GOBOHIDE_TYPE_UNSPECT = 0,
+	GOBOHIDE_TYPE_PATH,
+	GOBOHIDE_TYPE_LIST_SIZE,
+	__GOBOHIDE_TYPE_MAX,
+};
+#define GOBOHIDE_TYPE_MAX (__GOBOHIDE_TYPE_MAX - 1)
+
+#endif /* __GOBOHIDE_H */
