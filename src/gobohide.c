@@ -169,7 +169,7 @@ static int send_netlink_cmd(int command, ino_t ino, char *pathname)
 			/* let the callback process the message */
 			msgs++;
 			/* check local counter against global */
-			if (gobohide_list_size && msgs > gobohide_list_size)
+			if (msgs > gobohide_list_size)
 				break;
 		}
 	}
