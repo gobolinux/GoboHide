@@ -200,11 +200,6 @@ int cmd_hide_unhide(char *pathname, int operation)
 	/* We're only interested in directories */
 	fd = open(pathname, O_RDONLY|O_NOFOLLOW);
 	if (fd < 0) { /* We're opening a symlink */
-		fd = open(pathname, O_RDONLY); /* The symlink must point to a valid directory */
-		if (fd < 0) {
-			perror(pathname);
-			exit(EXIT_FAILURE);
-		}
 		if (lstat(pathname, &stats) == -1) { /* Do not follow the link */
 			perror("lstat");
 			exit(EXIT_FAILURE);
