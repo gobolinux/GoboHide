@@ -1,0 +1,74 @@
+#
+# This is the Spanish locale definition for GoboHide
+# Copyright (C) Lucas C. Villa Real <lucasvr@gobolinux.org>
+#
+
+
+msgid ""
+msgstr ""
+"Project-Id-Version: gobohide 0.12\n"
+"Report-Msgid-Bugs-To: lucasvr@gobolinux.org\n"
+"POT-Creation-Date: 2016-11-10 21:58-0200\n"
+"PO-Revision-Date: 2016-11-10 21:58-0200\n"
+"Last-Translator: Aitor P. Iturri\n"
+"Language-Team: Spanish (Spain)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=uft8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid ""
+	"%s: Hide/Unhide a directory\n\n"
+	"-h, --hide     Hide the directory\n"
+	"-u, --unhide   Unhide the directory\n"
+	"-l, --list     List the hidden directories\n"
+	"-f, --flush    Flush the hide list\n"
+	"    --version  Show the program version\n"
+	"    --help     Show this message\n"
+msgstr ""
+	"%s: Oculpa/Muestra un directorio\n\n"
+	"-h, --hide     Oculta el directorio\n"
+	"-u, --unhide   Muestra el directorio\n"
+	"-l, --list     Lista los directorios ocultos\n"
+	"-f, --flush    Limpia la lista de los directorios ocultos\n"
+	"    --version  Muestra la versión del programa\n"
+	"    --help     Muestra este mensaje\n"
+
+msgid ""
+	"Copyright (C) 2002-2006 CScience.ORG World Domination Inc.\n\n"
+	"This program is Free Software; you can redistributed it\n"
+	"and/or modify it under the terms of the GNU General Public\n"
+	"License as published by the Free Software Foundation.\n\n"
+	"%s version %s\n"
+msgstr ""
+	"Copyright (C) 2002 CScience.ORG World Domination Inc.\n\n"
+    "Este programa es Software Libre, puede distribuirlo\n"
+    "y/o modificarlo bajo los términos de la Licencia Pública\n"
+    "General de GNU (GNU GPL) de acuerdo a lo publicado por la\n"
+    "Free Software Foundation.\n\n"
+	"%s versión %s\n"
+
+
+msgid "%s is neither a directory nor a symbolic link\n"
+msgstr "%s no es un directorio ni un enlace simbólico\n"
+
+
+msgid "No inodes being hidden\n"
+msgstr "No hay ningún directorio oculto\n"
+
+
+msgid "Must be superuser\n"
+msgstr "Necesita ser superusuario\n"
+
+
+msgid "Hidden directories:\n"
+msgstr "Directorios ocultos:\n"
+
+
+msgid ""
+	"%s: You must specify at least one option!\n\n"
+	"try '%s --help' for more information\n"
+msgstr ""
+	"%s: !Debe especificar al menos una opción!\n\n"
+    "Ejecute '%s --help' para obtener más información\n"
+
+
