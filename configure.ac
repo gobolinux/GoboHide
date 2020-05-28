@@ -1,10 +1,10 @@
 dnl
 dnl configure.in file for GoboHide
 dnl
+
 AC_INIT([gobohide], [1.0])
 AC_CONFIG_SRCDIR(src/gobohide.c)
-AM_INIT_AUTOMAKE
-
+AC_CONFIG_MACRO_DIRS([m4])
 AC_PROG_CC
 AC_PATH_TOOL([PKGCONFIG], [pkg-config], [no])
 if test  "x$PKGCONFIG" = "xno"
@@ -12,6 +12,8 @@ then
     AC_MSG_ERROR([pkg-config not found])
 fi
 
+AM_INIT_AUTOMAKE
+AM_PROG_LIBTOOL
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION(0.13.1)
 
