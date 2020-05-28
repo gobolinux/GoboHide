@@ -10,8 +10,7 @@ rm po/insert-header.sin
 rm po/quot.sed
 
 aclocal -I m4
-autoconf
-automake --add-missing --copy
+autoreconf -i
 
 cd po
 for f in *.po; do
