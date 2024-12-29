@@ -13,7 +13,7 @@ msgstr ""
 "Last-Translator: Aitor P. Iturri\n"
 "Language-Team: Spanish (Spain)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=uft8\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid ""
